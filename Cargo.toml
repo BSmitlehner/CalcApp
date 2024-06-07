@@ -14,6 +14,6 @@ slint = "1.6"
 [build-dependencies]
 slint-build = "1.6"
 
-[build.metadata.bundle]
+[package.metadata.bundle]
 name = "The Kalkulator"
 identifier = "io.github.BSmitlehner.CalcApp"
