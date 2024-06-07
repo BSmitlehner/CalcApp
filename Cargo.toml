@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["benjamin"]
 edition = "2021"
 build = "build.rs"
+description = "Simple calculator app"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -13,3 +14,6 @@ slint = "1.6"
 [build-dependencies]
 slint-build = "1.6"
 
+[build.metadata.bundle]
+name = "The Kalkulator"
+identifier = "io.github.BSmitlehner.CalcApp"
