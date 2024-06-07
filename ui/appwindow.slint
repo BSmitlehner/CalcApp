@@ -1,0 +1,184 @@
+import { Button, VerticalBox, GridBox, HorizontalBox } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    in-out property <float> racun;
+    in-out property <float> rez;
+    callback dijeli(float, float) -> float;
+    callback mnozi(float, float) -> float;
+    callback zbrajaj(float, float) -> float;
+    callback oduzmi(float, float) -> float;
+
+    property <string> zapisano_text: "";
+    property <float> first_operand: 0.0;
+    property <string> current_operator: "";
+    GridLayout {
+        Row {
+            HorizontalBox {
+                height: 300px;
+                width: 100%;
+                    zapisano := Text {
+                        color: black;
+                        font-size: 70px;  
+                        text: root.zapisano_text;
+                        wrap: word-wrap;
+                        horizontal-alignment: left;
+                        vertical-alignment: center;  
+                        overflow: elide;
+                    }
+            }      
+        }
+        Row {
+            HorizontalBox {
+                Button {
+                    text: "9";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "9"; racun = root.zapisano_text.to-float(); }
+                    
+                }
+                Button {
+                    text: "8";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "8"; racun = root.zapisano_text.to-float(); }
+                }
+                Button {
+                    text: "7";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "7"; racun = root.zapisano_text.to-float(); }
+                }
+                Button {
+                    text: "+";
+                    height: 100px;
+                    width: 150px;
+                    clicked => {
+                        root.first_operand = racun;
+                        root.current_operator = "+";
+                        root.zapisano_text = "";
+                    }
+                }
+            }
+        }
+        Row {
+            HorizontalBox {
+                Button {
+                    text: "6";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "6"; racun = root.zapisano_text.to-float(); }
+                }
+                Button {
+                    text: "5";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "5"; racun = root.zapisano_text.to-float(); }
+                }
+                Button {
+                    text: "4";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "4"; racun = root.zapisano_text.to-float(); }
+                }
+                Button {
+                    text: "-";
+                    height: 100px;
+                    width: 150px;
+                    clicked => {
+                        root.first_operand = racun;
+                        root.current_operator = "-";
+                        root.zapisano_text = "";
+                    }
+                }
+            }
+            
+        }
+        Row {
+            HorizontalBox {
+                Button {
+                    text: "3";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "3"; racun = root.zapisano_text.to-float(); }
+                }
+                Button {
+                    text: "2";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "2"; racun = root.zapisano_text.to-float(); }
+                }
+                Button {
+                    text: "1";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "1"; racun = root.zapisano_text.to-float(); }
+                }
+                Button {
+                    height: 100px;
+                    width: 150px;
+                    text: "*";
+                    clicked => {
+                        root.first_operand = racun;
+                        root.current_operator = "*";
+                        root.zapisano_text = "";
+                    }
+                }
+            }
+            
+        }
+        Row {
+            HorizontalBox {
+                Button {
+                    text: "0";
+                    height: 100px;
+                    width: 150px;
+                    clicked => { root.zapisano_text += "0"; racun = root.zapisano_text.to-float(); }
+                }
+                Button {
+                    height: 100px;
+                    width: 150px;
+                    text: "A/C";
+                    clicked => {
+                        root.zapisano_text = "";
+                        racun = 0.0;
+                        root.first_operand = 0.0;
+                        root.current_operator = "";
+                    }
+                }
+                Button {
+                    height: 100px;
+                    width: 150px;
+                    text: "/";
+                    clicked => {
+                        root.first_operand = racun;
+                        root.current_operator = "/";
+                        root.zapisano_text = "";
+                    }
+                }
+                Button {
+                    text: "Calc";
+                    height: 100px;
+                    width: 150px;
+                    primary: true;
+                    clicked => {
+                        if (root.current_operator == "+") {
+                            root.rez = root.zbrajaj(root.first_operand, racun);
+                        } else if (root.current_operator == "-") {
+                            root.rez = root.oduzmi(root.first_operand, racun);
+                        } else if (root.current_operator == "*") {
+                            root.rez = root.mnozi(root.first_operand, racun);
+                        } else if (root.current_operator == "/") {
+                            root.rez = root.dijeli(root.first_operand, racun);
+                        }
+                        root.zapisano_text = root.rez;
+                        racun = root.rez;
+
+                        
+                    }
+                }
+                
+            }
+            
+        }
+    }
+}
