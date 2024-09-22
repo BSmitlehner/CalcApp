@@ -4,8 +4,9 @@ The Kalkulator
 
 ## About
 
-Simple calculator app also my first project.
+Simple calculator app.
 
 ## Usage
 
 Simply download and install the app to your desktop and run it from menu.
+Can also be built as .deb package
